@@ -1,0 +1,26 @@
+FROM debian:buster-slim
+
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+ENV PATH /opt/conda/bin:$PATH
+
+# RUN sed -i 's#http://deb.debian.org#http://mirrors.163.com#g' /etc/apt/sources.list
+
+RUN apt-get update --fix-missing && \
+    apt-get install -y build-essential && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+ADD ./miniconda3.sh ./miniconda3.sh
+
+RUN /bin/bash ./miniconda3.sh -b -p /opt/conda && \
+    rm ./miniconda3.sh && \
+    /opt/conda/bin/conda clean -tipsy && \
+    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
+
+RUN conda install mysqlclient && \
+    conda create -n recb python=3.7 && \
+    conda clean -ya && \
+    echo "conda activate recb" >> ~/.bashrc
+
+ENTRYPOINT ["/bin/bash"]
