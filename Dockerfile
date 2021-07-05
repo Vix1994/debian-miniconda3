@@ -8,11 +8,14 @@ ENV PATH /opt/conda/bin:$PATH
 RUN apt-get update --fix-missing && \
     apt-get install -y build-essential && \
     apt-get clean && \
+    apt-get wget && \
     rm -rf /var/lib/apt/lists/*
 
-ADD ./miniconda3.sh ./miniconda3.sh
+# ADD ./miniconda3.sh ./miniconda3.sh
 
-RUN /bin/bash ./miniconda3.sh -b -p /opt/conda && \
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh -o ./miniconda3.sh && \
+    apt-get remove wget && \
+    /bin/bash ./miniconda3.sh -b -p /opt/conda && \
     rm ./miniconda3.sh && \
     /opt/conda/bin/conda clean -tipsy && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
