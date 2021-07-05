@@ -14,7 +14,6 @@ RUN apt-get update --fix-missing && \
 # ADD ./miniconda3.sh ./miniconda3.sh
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh -o ./miniconda3.sh && \
-    apt-get remove wget && \
     /bin/bash ./miniconda3.sh -b -p /opt/conda && \
     rm ./miniconda3.sh && \
     /opt/conda/bin/conda clean -tipsy && \
