@@ -8,7 +8,7 @@ ENV PATH /opt/conda/bin:$PATH
 RUN apt-get update --fix-missing && \
     apt-get install -y build-essential && \
     apt-get install -y wget && \
-    apt-get install -y crontab && \
+    apt-get install -y cron && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
