@@ -26,6 +26,6 @@ RUN conda create -n recb python=3.7 && \
     conda clean -ya && \
     echo "conda activate recb" >> ~/.bashrc && \
     conda install mysqlclient && \
-    conda install Ipython
+    conda install -y Ipython
 
 ENTRYPOINT ["/bin/bash"]
